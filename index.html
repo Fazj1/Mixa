@@ -108,13 +108,10 @@
             height: 100%;
             object-fit: cover;
             display: block;
-            position: absolute;
-            top: 0;
-            left: 0;
         }
         
         /* Стили для плейсхолдера аватара */
-        .profile-avatar .avatar-placeholder {
+        .avatar-placeholder {
             width: 100%;
             height: 100%;
             display: flex;
@@ -1407,10 +1404,39 @@
             return initials || '?';
         }
         
-        // Функция для установки аватара с инициалами
-        function setAvatarWithInitials(avatarElement, firstName, lastName) {
+        // Функция для установки аватара
+        function setUserAvatar(avatarElement, user) {
+            if (!user) {
+                avatarElement.innerHTML = '<i class="fas fa-user"></i>';
+                return;
+            }
+            
+            const firstName = user.first_name || '';
+            const lastName = user.last_name || '';
             const initials = getInitials(firstName, lastName);
-            avatarElement.innerHTML = `<div class="avatar-placeholder">${initials}</div>`;
+            
+            // Пробуем загрузить фото из Telegram
+            if (user.photo_url) {
+                console.log('Пробуем загрузить аватар из Telegram:', user.photo_url);
+                
+                // Создаем временное изображение для проверки загрузки
+                const img = new Image();
+                
+                img.onload = function() {
+                    console.log('Аватар успешно загружен');
+                    avatarElement.innerHTML = `<img src="${user.photo_url}" alt="Avatar" style="width:100%; height:100%; object-fit:cover;">`;
+                };
+                
+                img.onerror = function() {
+                    console.log('Не удалось загрузить аватар, используем инициалы:', initials);
+                    avatarElement.innerHTML = `<div class="avatar-placeholder">${initials}</div>`;
+                };
+                
+                img.src = user.photo_url;
+            } else {
+                console.log('Нет photo_url, используем инициалы:', initials);
+                avatarElement.innerHTML = `<div class="avatar-placeholder">${initials}</div>`;
+            }
         }
         
         // Инициализация профиля
@@ -1422,6 +1448,14 @@
                 const firstName = user.first_name || '';
                 const lastName = user.last_name || '';
                 const fullName = `${firstName} ${lastName}`.trim();
+                
+                console.log('Данные пользователя:', {
+                    id: user.id,
+                    first_name: firstName,
+                    last_name: lastName,
+                    username: user.username,
+                    photo_url: user.photo_url
+                });
                 
                 // Обновляем имя
                 document.getElementById('profileName').textContent = fullName || 'Гость';
@@ -1436,25 +1470,8 @@
                     document.getElementById('profileUsernameField').textContent = 'не указан';
                 }
                 
-                // Пытаемся загрузить аватар через фото URL
-                if (user.photo_url) {
-                    console.log('Попытка загрузки аватара по URL:', user.photo_url);
-                    
-                    // Создаем тестовое изображение для проверки загрузки
-                    const img = new Image();
-                    img.onload = function() {
-                        console.log('Аватар успешно загружен');
-                        avatarElement.innerHTML = `<img src="${user.photo_url}" alt="Аватар" onerror="this.onerror=null; setAvatarWithInitials(this.parentElement, '${firstName}', '${lastName}')">`;
-                    };
-                    img.onerror = function() {
-                        console.log('Ошибка загрузки аватара, используем инициалы');
-                        setAvatarWithInitials(avatarElement, firstName, lastName);
-                    };
-                    img.src = user.photo_url;
-                } else {
-                    console.log('Нет фото пользователя, используем инициалы');
-                    setAvatarWithInitials(avatarElement, firstName, lastName);
-                }
+                // Устанавливаем аватар
+                setUserAvatar(avatarElement, user);
                 
                 // Генерируем или получаем UID
                 let userId = user.id.toString();
@@ -1464,7 +1481,7 @@
                 document.getElementById('userUID').textContent = uid;
                 document.getElementById('profileUIDField').textContent = uid;
             } else {
-                // Если нет пользователя, показываем стандартную иконку
+                console.log('Нет данных пользователя');
                 avatarElement.innerHTML = '<i class="fas fa-user"></i>';
             }
         }
@@ -1541,6 +1558,8 @@
                 setTimeout(() => {
                     cardElement.classList.remove('copied');
                 }, 3000);
+            }).catch(err => {
+                console.error('Ошибка копирования:', err);
             });
         }
         
@@ -1597,6 +1616,8 @@
                     item.classList.add('active');
                 }
             });
+            
+            tg.HapticFeedback.impactOccurred('light');
         }
         
         // Обработка скачивания файла
