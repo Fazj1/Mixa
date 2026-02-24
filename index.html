@@ -35,7 +35,7 @@
             min-height: 100vh;
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
-            padding-bottom: 60px; /* Уменьшено под новую навигацию */
+            padding-bottom: 60px;
         }
         
         .app {
@@ -100,12 +100,31 @@
             color: white;
             flex-shrink: 0;
             overflow: hidden;
+            position: relative;
         }
         
         .profile-avatar img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        
+        /* Стили для плейсхолдера аватара */
+        .profile-avatar .avatar-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            font-size: 24px;
+            font-weight: 600;
+            text-transform: uppercase;
         }
         
         .profile-info {
@@ -891,7 +910,7 @@
             border-top: 1px solid var(--border);
             display: flex;
             justify-content: space-around;
-            padding: 8px 0 12px; /* Уменьшено с 10px 0 20px */
+            padding: 8px 0 12px;
             z-index: 100;
         }
         
@@ -899,17 +918,17 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 2px; /* Уменьшено с 4px */
+            gap: 2px;
             color: var(--gray);
-            font-size: 11px; /* Уменьшено с 12px */
+            font-size: 11px;
             cursor: pointer;
             transition: all 0.2s;
             flex: 1;
-            padding: 6px 0; /* Уменьшено с 8px */
+            padding: 6px 0;
         }
         
         .nav-item i {
-            font-size: 18px; /* Уменьшено с 20px */
+            font-size: 18px;
         }
         
         .nav-item.active {
@@ -1376,15 +1395,37 @@
         // Переменная для отслеживания подписки (false по умолчанию)
         let hasSubscription = false;
         
+        // Функция для получения инициалов из имени
+        function getInitials(firstName, lastName) {
+            let initials = '';
+            if (firstName && firstName.length > 0) {
+                initials += firstName[0].toUpperCase();
+            }
+            if (lastName && lastName.length > 0) {
+                initials += lastName[0].toUpperCase();
+            }
+            return initials || '?';
+        }
+        
+        // Функция для установки аватара с инициалами
+        function setAvatarWithInitials(avatarElement, firstName, lastName) {
+            const initials = getInitials(firstName, lastName);
+            avatarElement.innerHTML = `<div class="avatar-placeholder">${initials}</div>`;
+        }
+        
         // Инициализация профиля
         function initProfile() {
+            const avatarElement = document.getElementById('profileAvatar');
+            
             if (user) {
+                // Получаем имя и фамилию
+                const firstName = user.first_name || '';
+                const lastName = user.last_name || '';
+                const fullName = `${firstName} ${lastName}`.trim();
+                
                 // Обновляем имя
-                if (user.first_name || user.last_name) {
-                    const fullName = `${user.first_name || ''} ${user.last_name || ''}`.trim();
-                    document.getElementById('profileName').textContent = fullName;
-                    document.getElementById('profileFullName').textContent = fullName;
-                }
+                document.getElementById('profileName').textContent = fullName || 'Гость';
+                document.getElementById('profileFullName').textContent = fullName || 'Гость';
                 
                 // Обновляем юзернейм
                 if (user.username) {
@@ -1395,10 +1436,24 @@
                     document.getElementById('profileUsernameField').textContent = 'не указан';
                 }
                 
-                // Обновляем аватар
+                // Пытаемся загрузить аватар через фото URL
                 if (user.photo_url) {
-                    const avatarElement = document.getElementById('profileAvatar');
-                    avatarElement.innerHTML = `<img src="${user.photo_url}" alt="Аватар">`;
+                    console.log('Попытка загрузки аватара по URL:', user.photo_url);
+                    
+                    // Создаем тестовое изображение для проверки загрузки
+                    const img = new Image();
+                    img.onload = function() {
+                        console.log('Аватар успешно загружен');
+                        avatarElement.innerHTML = `<img src="${user.photo_url}" alt="Аватар" onerror="this.onerror=null; setAvatarWithInitials(this.parentElement, '${firstName}', '${lastName}')">`;
+                    };
+                    img.onerror = function() {
+                        console.log('Ошибка загрузки аватара, используем инициалы');
+                        setAvatarWithInitials(avatarElement, firstName, lastName);
+                    };
+                    img.src = user.photo_url;
+                } else {
+                    console.log('Нет фото пользователя, используем инициалы');
+                    setAvatarWithInitials(avatarElement, firstName, lastName);
                 }
                 
                 // Генерируем или получаем UID
@@ -1408,6 +1463,9 @@
                 // Обновляем UID в интерфейсе
                 document.getElementById('userUID').textContent = uid;
                 document.getElementById('profileUIDField').textContent = uid;
+            } else {
+                // Если нет пользователя, показываем стандартную иконку
+                avatarElement.innerHTML = '<i class="fas fa-user"></i>';
             }
         }
         
@@ -1581,4 +1639,4 @@
         }
     </script>
 </body>
-                                </html>
+</html>
