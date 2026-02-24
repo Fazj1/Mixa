@@ -1,9 +1,9 @@
-<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plutonium Premium</title>
+    <title>Astral</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -19,6 +19,7 @@
             --warning: #f59e0b;
             --card-bg: rgba(255, 255, 255, 0.03);
             --border: rgba(255, 255, 255, 0.08);
+            --star-color: #fbbf24;
         }
         
         * {
@@ -34,6 +35,7 @@
             min-height: 100vh;
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
+            padding-bottom: 60px; /* Уменьшено под новую навигацию */
         }
         
         .app {
@@ -41,6 +43,120 @@
             margin: 0 auto;
             padding: 0;
             overflow-x: hidden;
+        }
+        
+        /* Запрет выделения текста на всех интерактивных элементах */
+        button, 
+        .nav-item, 
+        .tariff-card, 
+        .close-btn, 
+        .confirmation-close-btn,
+        .card-number-single,
+        .download-btn,
+        .primary-btn,
+        .confirm-btn,
+        .close-confirmation-btn {
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        /* Запрет выделения текста на всей странице при кликах */
+        .profile-section,
+        .badge,
+        .tariff-title,
+        .instruction-title,
+        .step-text,
+        .recipients-title,
+        .recipient-names,
+        .footer-note {
+            user-select: none;
+            -webkit-user-select: none;
+        }
+        
+        /* ПРОФИЛЬ ПОЛЬЗОВАТЕЛЯ */
+        .profile-section {
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            background: rgba(99, 102, 241, 0.05);
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 16px;
+            position: relative;
+        }
+        
+        .profile-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+        
+        .profile-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .profile-info {
+            flex: 1;
+        }
+        
+        .profile-name {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: var(--light);
+        }
+        
+        .profile-username {
+            font-size: 14px;
+            color: var(--gray);
+            margin-bottom: 8px;
+        }
+        
+        .profile-uid {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(99, 102, 241, 0.1);
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--primary);
+        }
+        
+        /* НАДПИСЬ "ПОДПИСКИ НЕТУ" */
+        .subscription-status {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(239, 68, 68, 0.15);
+            color: #ef4444;
+            padding: 6px 10px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 500;
+            text-align: center;
+            white-space: nowrap;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+        
+        .subscription-status i {
+            margin-right: 4px;
+            font-size: 10px;
         }
         
         /* HEADER */
@@ -74,16 +190,41 @@
             letter-spacing: -0.5px;
         }
         
-        .nonroot-badge {
+        .badges-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+        }
+        
+        .badge {
             display: inline-block;
-            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
-            color: white;
             padding: 6px 16px;
             border-radius: 20px;
             font-size: 14px;
             font-weight: 600;
-            margin-bottom: 12px;
-            box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+        
+        .badge.nonroot {
+            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+            color: white;
+        }
+        
+        .badge.pc {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            color: white;
+        }
+        
+        .badge.mobile {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+        }
+        
+        .badge.undetect {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: white;
         }
         
         .subtitle {
@@ -208,10 +349,8 @@
         /* БОЛЬШАЯ КНОПКА */
         .main-action {
             padding: 20px;
-            position: sticky;
-            bottom: 0;
-            background: linear-gradient(to top, var(--dark) 80%, transparent);
             border-top: 1px solid var(--border);
+            background: linear-gradient(to top, var(--dark) 80%, transparent);
         }
         
         .primary-btn {
@@ -463,6 +602,7 @@
             color: var(--gray);
         }
         
+        /* ВОЗВРАТ К СТАРОМУ КОПИРОВАНИЮ КАРТЫ */
         .card-number-single {
             background: rgba(0, 0, 0, 0.3);
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -531,7 +671,7 @@
             color: var(--success);
         }
         
-        /* ПОЛУЧАТЕЛИ */
+        /* ПОЛУЧАТЕЛИ В СТОЛБИК БЕЗ НАДПИСИ */
         .recipients-section {
             margin-top: 20px;
         }
@@ -546,31 +686,24 @@
             gap: 8px;
         }
         
+        .recipients-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
         .recipient-item {
             background: rgba(255, 255, 255, 0.03);
             border-radius: 12px;
             padding: 16px;
             border: 1px solid var(--border);
+            text-align: center;
         }
         
         .recipient-names {
             font-size: 16px;
             font-weight: 600;
-            color: var(--light);
-            margin-bottom: 12px;
-            text-align: center;
-        }
-        
-        .recipient-number {
-            font-size: 18px;
-            font-weight: 700;
             color: var(--secondary);
-            font-family: 'Courier New', monospace;
-            text-align: center;
-            padding: 12px;
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 8px;
-            letter-spacing: 1px;
         }
         
         /* ACTION BUTTONS */
@@ -747,6 +880,136 @@
             color: var(--secondary);
         }
         
+        /* НИЖНЯЯ НАВИГАЦИЯ - УМЕНЬШЕННАЯ */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-around;
+            padding: 8px 0 12px; /* Уменьшено с 10px 0 20px */
+            z-index: 100;
+        }
+        
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px; /* Уменьшено с 4px */
+            color: var(--gray);
+            font-size: 11px; /* Уменьшено с 12px */
+            cursor: pointer;
+            transition: all 0.2s;
+            flex: 1;
+            padding: 6px 0; /* Уменьшено с 8px */
+        }
+        
+        .nav-item i {
+            font-size: 18px; /* Уменьшено с 20px */
+        }
+        
+        .nav-item.active {
+            color: var(--primary);
+        }
+        
+        .nav-item.active i {
+            color: var(--primary);
+        }
+        
+        /* КОНТЕНТ СТРАНИЦ */
+        .page {
+            display: none;
+        }
+        
+        .page.active {
+            display: block;
+        }
+        
+        /* ПРОФИЛЬ */
+        .profile-page-content {
+            padding: 20px;
+        }
+        
+        .profile-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 24px;
+            margin-bottom: 20px;
+        }
+        
+        .profile-field {
+            margin-bottom: 20px;
+        }
+        
+        .profile-field-label {
+            font-size: 14px;
+            color: var(--gray);
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .profile-field-value {
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 14px 16px;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .key-hidden {
+            color: var(--gray);
+            letter-spacing: 2px;
+        }
+        
+        .hint-text {
+            font-size: 14px;
+            color: var(--gray);
+            background: rgba(99, 102, 241, 0.1);
+            border-left: 3px solid var(--primary);
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin: 24px 0;
+        }
+        
+        .hint-text i {
+            color: var(--primary);
+            margin-right: 8px;
+        }
+        
+        .download-btn {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 18px;
+            border-radius: 16px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 20px;
+        }
+        
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(99, 102, 241, 0.4);
+        }
+        
+        /* SCROLLBAR STYLES */
         ::-webkit-scrollbar {
             width: 6px;
         }
@@ -764,84 +1027,206 @@
         ::-webkit-scrollbar-thumb:hover {
             background: var(--primary-dark);
         }
+        
+        /* АДАПТИВНОСТЬ */
+        @media (max-width: 480px) {
+            .card-number-single {
+                font-size: 18px;
+                letter-spacing: 1px;
+            }
+            
+            .summary-amount {
+                font-size: 32px;
+            }
+            
+            .title {
+                font-size: 24px;
+            }
+            
+            .price-amount {
+                font-size: 20px;
+            }
+            
+            .badges-container {
+                gap: 6px;
+            }
+            
+            .badge {
+                padding: 4px 12px;
+                font-size: 12px;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="app">
-        <!-- ЗАГОЛОВОК -->
-        <div class="header">
-            <div class="logo">
-                <i class="fas fa-bolt"></i>
-            </div>
-            <h1 class="title">Plutonium Premium</h1>
-            <div class="nonroot-badge">nonroot</div>
-            <p class="subtitle">Полный доступ ко всем функциям</p>
-        </div>
-        
-        <!-- ВЫБОР ТАРИФА -->
-        <div class="tariff-section">
-            <div class="tariff-title">
-                <i class="fas fa-crown"></i>
-                <span>Выберите вариант</span>
+        <!-- СТРАНИЦА МАГАЗИНА (ГЛАВНАЯ) -->
+        <div id="shopPage" class="page active">
+            <!-- ПРОФИЛЬ ПОЛЬЗОВАТЕЛЯ -->
+            <div class="profile-section" id="profileSection">
+                <div class="profile-avatar" id="profileAvatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="profile-info">
+                    <div class="profile-name" id="profileName">Гость</div>
+                    <div class="profile-username" id="profileUsername">@username</div>
+                    <div class="profile-uid">
+                        <i class="fas fa-id-card"></i>
+                        <span>UID: <span id="userUID">1000</span></span>
+                    </div>
+                </div>
+                <div class="subscription-status">
+                    <i class="fas fa-times"></i>
+                    Подписки нет
+                </div>
             </div>
             
-            <div class="tariff-cards">
-                <!-- 7 ДНЕЙ -->
-                <div class="tariff-card selected" data-plan="7">
-                    <div class="tariff-info">
-                        <div class="tariff-period">
-                            <i class="fas fa-hourglass-half"></i>
-                            7 дней
-                        </div>
-                        <div class="tariff-description">Короткий период</div>
-                    </div>
-                    <div class="tariff-price">
-                        <div class="price-amount">199 ₽</div>
-                        <div class="price-note">одноразовый платёж</div>
-                    </div>
-                    <div class="tariff-badge">Надёжный</div>
+            <!-- ЗАГОЛОВОК -->
+            <div class="header">
+                <div class="logo">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <h1 class="title">Astral</h1>
+                
+                <!-- БЕЙДЖИ -->
+                <div class="badges-container">
+                    <div class="badge nonroot">nonroot</div>
+                    <div class="badge pc">PC</div>
+                    <div class="badge mobile">Mobile</div>
+                    <div class="badge undetect">undetect</div>
                 </div>
                 
-                <!-- 30 ДНЕЙ -->
-                <div class="tariff-card" data-plan="30">
-                    <div class="tariff-info">
-                        <div class="tariff-period">
-                            <i class="fas fa-calendar-alt"></i>
-                            30 дней
-                        </div>
-                        <div class="tariff-description">Стандартный доступ</div>
-                    </div>
-                    <div class="tariff-price">
-                        <div class="price-amount">449 ₽</div>
-                        <div class="price-note">экономия 36%</div>
-                    </div>
-                    <div class="tariff-badge">Популярный</div>
+                <p class="subtitle">Полный доступ ко всем функциям</p>
+            </div>
+            
+            <!-- ВЫБОР ТАРИФА -->
+            <div class="tariff-section">
+                <div class="tariff-title">
+                    <i class="fas fa-crown"></i>
+                    <span>Выберите вариант</span>
                 </div>
                 
-                <!-- НАВСЕГДА -->
-                <div class="tariff-card" data-plan="forever">
-                    <div class="tariff-info">
-                        <div class="tariff-period">
-                            <i class="fas fa-infinity"></i>
-                            Навсегда
+                <div class="tariff-cards">
+                    <!-- 7 ДНЕЙ - 249₽ -->
+                    <div class="tariff-card selected" data-plan="7">
+                        <div class="tariff-info">
+                            <div class="tariff-period">
+                                <i class="fas fa-hourglass-half"></i>
+                                7 дней
+                            </div>
+                            <div class="tariff-description">Обычный доступ</div>
                         </div>
-                        <div class="tariff-description">Пожизненный доступ</div>
+                        <div class="tariff-price">
+                            <div class="price-amount">249 ₽</div>
+                            <div class="price-note">экономия 15%</div>
+                        </div>
+                        <div class="tariff-badge">Надёжный</div>
                     </div>
-                    <div class="tariff-price">
-                        <div class="price-amount">949 ₽</div>
-                        <div class="price-note">экономия 68%</div>
+                    
+                    <!-- 30 ДНЕЙ - 499₽ -->
+                    <div class="tariff-card" data-plan="30">
+                        <div class="tariff-info">
+                            <div class="tariff-period">
+                                <i class="fas fa-calendar-alt"></i>
+                                30 дней
+                            </div>
+                            <div class="tariff-description">Стандартный доступ</div>
+                        </div>
+                        <div class="tariff-price">
+                            <div class="price-amount">499 ₽</div>
+                            <div class="price-note">экономия 40%</div>
+                        </div>
+                        <div class="tariff-badge">Популярный</div>
                     </div>
-                    <div class="tariff-badge savings-badge">Выгодно</div>
+                    
+                    <!-- НАВСЕГДА - 999₽ -->
+                    <div class="tariff-card" data-plan="forever">
+                        <div class="tariff-info">
+                            <div class="tariff-period">
+                                <i class="fas fa-infinity"></i>
+                                Навсегда
+                            </div>
+                            <div class="tariff-description">Пожизненный доступ</div>
+                        </div>
+                        <div class="tariff-price">
+                            <div class="price-amount">999 ₽</div>
+                            <div class="price-note">экономия 72%</div>
+                        </div>
+                        <div class="tariff-badge savings-badge">Выгодно</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- БОЛЬШАЯ КНОПКА -->
+            <div class="main-action">
+                <button class="primary-btn" id="buyButton" onclick="openPaymentModal()">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>Купить за 249 ₽</span>
+                </button>
+            </div>
+        </div>
+        
+        <!-- СТРАНИЦА ПРОФИЛЯ -->
+        <div id="profilePage" class="page">
+            <div class="profile-page-content">
+                <div class="profile-card">
+                    <div class="profile-field">
+                        <div class="profile-field-label">
+                            <i class="fas fa-user"></i>
+                            <span>Имя пользователя</span>
+                        </div>
+                        <div class="profile-field-value" id="profileFullName">Гость</div>
+                    </div>
+                    
+                    <div class="profile-field">
+                        <div class="profile-field-label">
+                            <i class="fas fa-at"></i>
+                            <span>Username</span>
+                        </div>
+                        <div class="profile-field-value" id="profileUsernameField">@username</div>
+                    </div>
+                    
+                    <div class="profile-field">
+                        <div class="profile-field-label">
+                            <i class="fas fa-id-card"></i>
+                            <span>UID</span>
+                        </div>
+                        <div class="profile-field-value" id="profileUIDField">1000</div>
+                    </div>
+                    
+                    <div class="profile-field">
+                        <div class="profile-field-label">
+                            <i class="fas fa-key"></i>
+                            <span>Ключ</span>
+                        </div>
+                        <div class="profile-field-value">
+                            <span class="key-hidden" id="userKey">########</span>
+                        </div>
+                    </div>
+                    
+                    <div class="hint-text">
+                        <i class="fas fa-info-circle"></i>
+                        <span id="keyHint">Ключ будет виден после покупки</span>
+                    </div>
+                    
+                    <button class="download-btn" id="downloadFileBtn" onclick="handleDownload()">
+                        <i class="fas fa-download"></i>
+                        <span>Скачать файл</span>
+                    </button>
                 </div>
             </div>
         </div>
         
-        <!-- БОЛЬШАЯ КНОПКА -->
-        <div class="main-action">
-            <button class="primary-btn" id="buyButton" onclick="openPaymentModal()">
-                <i class="fas fa-shopping-cart"></i>
-                <span>Купить за 199 ₽</span>
-            </button>
+        <!-- НИЖНЯЯ НАВИГАЦИЯ -->
+        <div class="bottom-nav">
+            <div class="nav-item active" data-page="shop" onclick="switchPage('shop')">
+                <i class="fas fa-store"></i>
+                <span>Магазин</span>
+            </div>
+            <div class="nav-item" data-page="profile" onclick="switchPage('profile')">
+                <i class="fas fa-user"></i>
+                <span>Профиль</span>
+            </div>
         </div>
         
         <!-- ПЛАТЕЖНОЕ МОДАЛЬНОЕ ОКНО -->
@@ -858,7 +1243,7 @@
                 <div class="payment-content">
                     <div class="order-summary">
                         <span class="summary-label">Сумма к оплате</span>
-                        <div class="summary-amount" id="paymentAmount">199 ₽</div>
+                        <div class="summary-amount" id="paymentAmount">249 ₽</div>
                         <div class="summary-period" id="paymentPeriod">за 7 дней доступа</div>
                     </div>
                     
@@ -874,7 +1259,7 @@
                             </div>
                             <div class="step">
                                 <div class="step-number">2</div>
-                                <div class="step-text">Переведите <strong id="stepAmount">199 ₽</strong> в своём банке</div>
+                                <div class="step-text">Переведите <strong id="stepAmount">249 ₽</strong> в своём банке</div>
                             </div>
                             <div class="step">
                                 <div class="step-number">3</div>
@@ -895,22 +1280,24 @@
                             </div>
                         </div>
                         
-                        <!-- НОМЕР КАРТЫ -->
                         <div class="card-number-single" id="cardNumberSingle" onclick="copyCardNumber()">
                             <span>2200 7012 0398 1698</span>
                             <i class="far fa-copy copy-icon"></i>
                             <div class="copy-indicator">Скопировано!</div>
                         </div>
                         
-                        <!-- ПОЛУЧАТЕЛИ -->
                         <div class="recipients-section">
                             <div class="recipients-title">
                                 <i class="fas fa-user"></i>
-                                <span>Получатель:</span>
+                                <span>Получатели:</span>
                             </div>
-                            <div class="recipient-item">
-                                <div class="recipient-names">Кирилл Ч. / Ирина Ч.</div>
-                                <div class="recipient-number">2200 7012 0398 1698</div>
+                            <div class="recipients-list">
+                                <div class="recipient-item">
+                                    <div class="recipient-names">Кирилл Ч.</div>
+                                </div>
+                                <div class="recipient-item">
+                                    <div class="recipient-names">Ирина Ч.</div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -975,32 +1362,83 @@
         tg.setHeaderColor('#0f172a');
         tg.setBackgroundColor('#0f172a');
         
-        // Данные
+        // Данные пользователя
         const user = tg.initDataUnsafe.user;
         let selectedPlan = '7';
         
-        // Цены и периоды
+        // Цены и периоды (обновленные)
         const plans = {
-            '7': { price: 199, name: '7 дней', period: '7 дней доступа' },
-            '30': { price: 449, name: '30 дней', period: '30 дней доступа' },
-            'forever': { price: 949, name: 'Навсегда', period: 'постоянный доступ' }
+            '7': { price: 249, name: '7 дней', period: '7 дней доступа' },
+            '30': { price: 499, name: '30 дней', period: '30 дней доступа' },
+            'forever': { price: 999, name: 'Навсегда', period: 'постоянный доступ' }
         };
+        
+        // Переменная для отслеживания подписки (false по умолчанию)
+        let hasSubscription = false;
+        
+        // Инициализация профиля
+        function initProfile() {
+            if (user) {
+                // Обновляем имя
+                if (user.first_name || user.last_name) {
+                    const fullName = `${user.first_name || ''} ${user.last_name || ''}`.trim();
+                    document.getElementById('profileName').textContent = fullName;
+                    document.getElementById('profileFullName').textContent = fullName;
+                }
+                
+                // Обновляем юзернейм
+                if (user.username) {
+                    document.getElementById('profileUsername').textContent = `@${user.username}`;
+                    document.getElementById('profileUsernameField').textContent = `@${user.username}`;
+                } else {
+                    document.getElementById('profileUsername').style.display = 'none';
+                    document.getElementById('profileUsernameField').textContent = 'не указан';
+                }
+                
+                // Обновляем аватар
+                if (user.photo_url) {
+                    const avatarElement = document.getElementById('profileAvatar');
+                    avatarElement.innerHTML = `<img src="${user.photo_url}" alt="Аватар">`;
+                }
+                
+                // Генерируем или получаем UID
+                let userId = user.id.toString();
+                let uid = getOrCreateUID(userId);
+                
+                // Обновляем UID в интерфейсе
+                document.getElementById('userUID').textContent = uid;
+                document.getElementById('profileUIDField').textContent = uid;
+            }
+        }
+        
+        // Система UID
+        function getOrCreateUID(telegramId) {
+            const storageKey = 'user_uid_mapping';
+            let uidMapping = JSON.parse(localStorage.getItem(storageKey)) || {};
+            
+            if (uidMapping[telegramId]) {
+                return uidMapping[telegramId];
+            }
+            
+            let lastUID = parseInt(localStorage.getItem('last_uid')) || 1000;
+            let newUID = lastUID + 1;
+            
+            uidMapping[telegramId] = newUID;
+            localStorage.setItem(storageKey, JSON.stringify(uidMapping));
+            localStorage.setItem('last_uid', newUID.toString());
+            
+            return newUID;
+        }
         
         // Выбор тарифа
         document.querySelectorAll('.tariff-card').forEach(card => {
             card.addEventListener('click', function() {
-                // Убрать выделение со всех
                 document.querySelectorAll('.tariff-card').forEach(c => {
                     c.classList.remove('selected');
                 });
                 
-                // Выделить выбранный
                 this.classList.add('selected');
-                
-                // Обновить выбранный план
                 selectedPlan = this.getAttribute('data-plan');
-                
-                // Обновить кнопку
                 updateBuyButton();
             });
         });
@@ -1016,12 +1454,13 @@
         function openPaymentModal() {
             const plan = plans[selectedPlan];
             
-            // Обновить информацию в модалке
             document.getElementById('paymentAmount').textContent = `${plan.price} ₽`;
             document.getElementById('paymentPeriod').textContent = `за ${plan.period}`;
             document.getElementById('stepAmount').textContent = `${plan.price} ₽`;
             
-            // Показать модалку
+            const cardElement = document.getElementById('cardNumberSingle');
+            cardElement.classList.remove('copied');
+            
             document.getElementById('paymentModal').style.display = 'flex';
             document.body.style.overflow = 'hidden';
         }
@@ -1032,21 +1471,15 @@
             document.body.style.overflow = 'auto';
         }
         
-        // Копирование номера карты
+        // Копирование карты
         function copyCardNumber() {
             const cardNumber = '2200701203981698';
             
-            // Копировать в буфер обмена
             navigator.clipboard.writeText(cardNumber).then(() => {
-                // Визуальная обратная связь
                 const cardElement = document.getElementById('cardNumberSingle');
-                
                 cardElement.classList.add('copied');
-                
-                // Тактильная обратная связь
                 tg.HapticFeedback.impactOccurred('medium');
                 
-                // Сбросить через 3 секунды
                 setTimeout(() => {
                     cardElement.classList.remove('copied');
                 }, 3000);
@@ -1055,26 +1488,30 @@
         
         // Показать модальное окно подтверждения
         function showConfirmation() {
-            // Закрыть платежное окно
-            closePaymentModal();
-            
-            // Показать окно подтверждения
-            document.getElementById('confirmationModal').style.display = 'flex';
-            document.body.style.overflow = 'hidden';
-            
-            // Тактильная обратная связь
-            tg.HapticFeedback.impactOccurred('light');
-            
-            // Отправить данные в бота
-            const plan = plans[selectedPlan];
-            tg.sendData(JSON.stringify({
-                action: 'payment_confirmed',
-                plan: selectedPlan,
-                price: plan.price,
-                plan_name: plan.name,
-                user_id: user ? user.id : 'unknown',
-                timestamp: Date.now()
-            }));
+            try {
+                closePaymentModal();
+                
+                document.getElementById('confirmationModal').style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+                
+                tg.HapticFeedback.impactOccurred('light');
+                
+                const plan = plans[selectedPlan];
+                const userUID = document.getElementById('userUID').textContent;
+                const userName = user ? `${user.first_name || ''} ${user.last_name || ''}`.trim() : 'Гость';
+                const userUsername = user ? user.username : 'unknown';
+                const userId = user ? user.id : 'unknown';
+                
+                const dataString = `payment_confirmed|${selectedPlan}|${plan.price}|${plan.name}|${userId}|${userName}|${userUsername}|${userUID}|${Date.now()}|2200701203981698|Кирилл Ч. / Ирина Ч.`;
+                
+                console.log('Отправка данных боту:', dataString);
+                tg.sendData(dataString);
+                
+            } catch (error) {
+                console.error('Ошибка при отправке данных:', error);
+                document.getElementById('confirmationModal').style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            }
         }
         
         // Закрыть модальное окно подтверждения
@@ -1082,20 +1519,60 @@
             document.getElementById('confirmationModal').style.display = 'none';
             document.body.style.overflow = 'auto';
             
-            // Закрыть приложение через 1 секунду
             setTimeout(() => {
                 tg.close();
             }, 1000);
         }
         
+        // Переключение страниц
+        function switchPage(page) {
+            // Обновляем активную страницу
+            document.querySelectorAll('.page').forEach(p => {
+                p.classList.remove('active');
+            });
+            document.getElementById(page + 'Page').classList.add('active');
+            
+            // Обновляем активный пункт навигации
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+                if (item.getAttribute('data-page') === page) {
+                    item.classList.add('active');
+                }
+            });
+        }
+        
+        // Обработка скачивания файла
+        function handleDownload() {
+            if (!hasSubscription) {
+                // Показываем ошибку
+                tg.showPopup({
+                    title: '❌ Ошибка',
+                    message: 'У вас нет активной подписки. Приобретите подписку в магазине, чтобы скачать файл.',
+                    buttons: [{id: 'ok', type: 'ok', text: 'Понятно'}]
+                });
+                tg.HapticFeedback.notificationOccurred('error');
+            } else {
+                // Здесь будет логика скачивания файла
+                tg.showPopup({
+                    title: '✅ Успешно',
+                    message: 'Файл скоро начнет скачиваться...',
+                    buttons: [{id: 'ok', type: 'ok', text: 'Ок'}]
+                });
+                setTimeout(() => {
+                    tg.HapticFeedback.impactOccurred('medium');
+                }, 500);
+            }
+        }
+        
         // Инициализация
+        initProfile();
         updateBuyButton();
         
         // Приветственное сообщение
         if (!localStorage.getItem('welcome_shown')) {
             setTimeout(() => {
                 tg.showPopup({
-                    title: '👋 Добро пожаловать в Plutonium Premium!',
+                    title: '👋 Добро пожаловать в Astral!',
                     message: 'Выберите тариф, скопируйте номер карты, оплатите и пришлите скрин оплаты для получения ключа и файла.',
                     buttons: [{id: 'ok', type: 'ok', text: 'Понятно!'}]
                 });
@@ -1104,4 +1581,4 @@
         }
     </script>
 </body>
-</html>
+                                </html>
