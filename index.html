@@ -25,12 +25,7 @@
     position: relative;
   }
 
-  .ton-icon {
-    display: inline-block;
-    vertical-align: middle;
-    width: 1em; height: 1em;
-    flex-shrink: 0;
-  }
+  .ton-icon { display: inline-block; vertical-align: middle; width: 1em; height: 1em; flex-shrink: 0; }
 
   .header {
     display: flex; justify-content: space-between; align-items: center;
@@ -49,7 +44,10 @@
     color: #0a0a0a;
     flex-shrink: 0; position: relative; overflow: hidden;
     box-shadow: 0 0 0 2px #1f1f1f;
+    cursor: pointer;
+    transition: transform 0.08s;
   }
+  .avatar:active { transform: scale(0.9); }
   .avatar::after {
     content: '';
     position: absolute; inset: 0;
@@ -94,12 +92,7 @@
     padding: 0; color: #9ca3af;
   }
   .tool-btn:active { transform: scale(0.92); background: #1a1a1a; }
-  .tool-btn svg {
-    width: 20px; height: 20px;
-    stroke: currentColor; fill: none;
-    stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
-    display: block;
-  }
+  .tool-btn svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; display: block; }
   .tool-btn.active { color: #fbbf24; border-color: rgba(251,191,36,0.3); }
   .tool-btn.sound-on svg polygon,
   .tool-btn.sound-on svg path { fill: currentColor; }
@@ -201,35 +194,17 @@
     100% { opacity: 0; transform: translate(-50%, -50%) scale(1.4); }
   }
   .particles { position: absolute; inset: 0; pointer-events: none; z-index: 6; overflow: visible; }
-  .particle {
-    position: absolute; top: 50%; left: 50%;
-    width: 8px; height: 8px; border-radius: 50%;
-    will-change: transform, opacity;
-  }
-  .info-row {
-    display: grid; grid-template-columns: 1fr 1fr 1fr;
-    gap: 6px; width: 100%; flex-shrink: 0;
-  }
-  .info-box {
-    background: #141414; border: 1px solid #1f1f1f;
-    border-radius: 10px; padding: 6px; text-align: center;
-  }
-  .info-box .lbl {
-    font-size: 9px; color: #555;
-    text-transform: uppercase; letter-spacing: 0.8px;
-    margin-bottom: 2px; font-weight: 600;
-  }
-  .info-box .val {
-    font-size: 14px; font-weight: 800;
-    display: flex; align-items: center; justify-content: center; gap: 4px;
-  }
+  .particle { position: absolute; top: 50%; left: 50%; width: 8px; height: 8px; border-radius: 50%; will-change: transform, opacity; }
+  .info-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; width: 100%; flex-shrink: 0; }
+  .info-box { background: #141414; border: 1px solid #1f1f1f; border-radius: 10px; padding: 6px; text-align: center; }
+  .info-box .lbl { font-size: 9px; color: #555; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 2px; font-weight: 600; }
+  .info-box .val { font-size: 14px; font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 4px; }
   .info-box .val .ton-icon { width: 14px; height: 14px; }
   .info-box .val.green { color: #a3e635; }
   .info-box .val.yellow { color: #ffd23f; }
 
   .bet-display {
-    width: 100%; background: #141414;
-    border: 1px solid #1f1f1f;
+    width: 100%; background: #141414; border: 1px solid #1f1f1f;
     border-radius: 12px; padding: 10px 14px;
     display: flex; justify-content: space-between; align-items: center;
     flex-shrink: 0; cursor: pointer;
@@ -243,26 +218,17 @@
   }
   .bet-value .ton-icon { width: 20px; height: 20px; }
   .bet-value .caret {
-    display: inline-block;
-    width: 2px; height: 20px;
-    background: #ffd23f;
-    margin-left: 2px;
-    opacity: 0;
-    transition: opacity 0.2s;
+    display: inline-block; width: 2px; height: 20px;
+    background: #ffd23f; margin-left: 2px; opacity: 0; transition: opacity 0.2s;
   }
-  .bet-display.editing .caret {
-    opacity: 1;
-    animation: blink 1s steps(2) infinite;
-  }
+  .bet-display.editing .caret { opacity: 1; animation: blink 1s steps(2) infinite; }
   @keyframes blink { 50% { opacity: 0; } }
 
   .keypad-overlay {
     position: fixed; left: 0; right: 0; bottom: 0;
-    background: #0e0e0e;
-    border-top: 1px solid #1f1f1f;
+    background: #0e0e0e; border-top: 1px solid #1f1f1f;
     padding: 10px 10px calc(10px + env(safe-area-inset-bottom, 0px)) 10px;
-    z-index: 100;
-    transform: translateY(100%);
+    z-index: 100; transform: translateY(100%);
     transition: transform 0.25s ease-out;
     box-shadow: 0 -10px 40px rgba(0,0,0,0.7);
   }
@@ -273,33 +239,27 @@
     padding: 0 4px; gap: 10px;
   }
   .keypad-title {
-    font-size: 22px; color: #ffd23f;
-    font-weight: 900; letter-spacing: -0.5px;
-    flex: 1; display: flex; align-items: center; gap: 6px;
+    font-size: 22px; color: #ffd23f; font-weight: 900;
+    letter-spacing: -0.5px; flex: 1;
+    display: flex; align-items: center; gap: 6px;
     overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
   }
   .keypad-title .ton-icon { width: 20px; height: 20px; }
   .keypad-title .caret {
-    display: inline-block;
-    width: 2px; height: 22px;
-    background: #ffd23f;
-    margin-left: 2px;
-    animation: blink 1s steps(2) infinite;
-    flex-shrink: 0;
+    display: inline-block; width: 2px; height: 22px;
+    background: #ffd23f; margin-left: 2px;
+    animation: blink 1s steps(2) infinite; flex-shrink: 0;
   }
   .keypad-done {
     background: linear-gradient(135deg, #a3e635, #65a30d);
-    color: #0a0a0a;
-    border: none; border-radius: 8px;
+    color: #0a0a0a; border: none; border-radius: 8px;
     padding: 8px 16px; font-size: 12px; font-weight: 800;
     cursor: pointer; font-family: 'Inter', sans-serif;
-    text-transform: uppercase; letter-spacing: 0.5px;
-    flex-shrink: 0;
+    text-transform: uppercase; letter-spacing: 0.5px; flex-shrink: 0;
   }
   .keypad-inner {
     max-width: 460px; margin: 0 auto;
-    display: grid; grid-template-columns: repeat(3, 1fr);
-    gap: 6px;
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px;
   }
   .key {
     background: #1a1a1a; border: 1px solid #242424;
@@ -342,10 +302,7 @@
   }
   button.action:active:not(:disabled) { transform: scale(0.97); }
   button.action:disabled { opacity: 0.5; cursor: not-allowed; }
-  button.action.spinning {
-    background: linear-gradient(135deg, #444, #222);
-    color: #888;
-  }
+  button.action.spinning { background: linear-gradient(135deg, #444, #222); color: #888; }
 
   .modal-bg {
     position: fixed; inset: 0;
@@ -362,47 +319,23 @@
   }
   .modal h3 { margin: 0 0 6px; font-size: 16px; font-weight: 800; color: #fff; }
   .modal p { margin: 0 0 16px; font-size: 12px; color: #666; }
-  .chance-slider-value {
-    font-size: 42px; font-weight: 900;
-    color: #a3e635; margin: 10px 0 4px;
-    line-height: 1;
-  }
+  .chance-slider-value { font-size: 42px; font-weight: 900; color: #a3e635; margin: 10px 0 4px; line-height: 1; }
   .chance-slider-value.warn { color: #fbbf24; }
   .chance-slider-value.max { color: #f87171; }
   .slider-wrap { margin: 20px 0 10px; position: relative; height: 30px; }
-  .slider-wrap input[type=range] {
-    width: 100%; -webkit-appearance: none;
-    background: transparent; height: 30px; outline: none;
-    position: relative; z-index: 2;
-  }
+  .slider-wrap input[type=range] { width: 100%; -webkit-appearance: none; background: transparent; height: 30px; outline: none; position: relative; z-index: 2; }
   .slider-wrap input[type=range]::-webkit-slider-runnable-track {
     height: 6px;
     background: linear-gradient(to right, #a3e635 0%, #a3e635 var(--pct, 50%), #2a2a2a var(--pct, 50%), #2a2a2a 100%);
     border-radius: 3px; border: none;
   }
   .slider-wrap input[type=range]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 22px; height: 22px;
-    background: #fff; border-radius: 50%;
-    border: none; margin-top: -8px; cursor: pointer;
+    -webkit-appearance: none; width: 22px; height: 22px;
+    background: #fff; border-radius: 50%; border: none;
+    margin-top: -8px; cursor: pointer;
     box-shadow: 0 0 0 4px rgba(163,230,53,0.25), 0 2px 6px rgba(0,0,0,0.4);
   }
-  .slider-wrap input[type=range]::-moz-range-track {
-    height: 6px; background: #2a2a2a; border-radius: 3px; border: none;
-  }
-  .slider-wrap input[type=range]::-moz-range-progress {
-    background: #a3e635; height: 6px; border-radius: 3px;
-  }
-  .slider-wrap input[type=range]::-moz-range-thumb {
-    width: 22px; height: 22px; background: #fff;
-    border-radius: 50%; border: none; cursor: pointer;
-    box-shadow: 0 0 0 4px rgba(163,230,53,0.25), 0 2px 6px rgba(0,0,0,0.4);
-  }
-  .slider-range-labels {
-    display: flex; justify-content: space-between;
-    font-size: 10px; color: #555; font-weight: 700;
-    margin-top: -4px;
-  }
+  .slider-range-labels { display: flex; justify-content: space-between; font-size: 10px; color: #555; font-weight: 700; margin-top: -4px; }
   .modal-actions { display: flex; gap: 8px; margin-top: 16px; }
   .modal-actions button {
     flex: 1; padding: 12px; border-radius: 10px;
@@ -411,10 +344,7 @@
     text-transform: uppercase; letter-spacing: 0.5px;
   }
   .modal-cancel { background: #1f1f1f; color: #888; }
-  .modal-apply {
-    background: linear-gradient(135deg, #a3e635, #65a30d);
-    color: #0a0a0a;
-  }
+  .modal-apply { background: linear-gradient(135deg, #a3e635, #65a30d); color: #0a0a0a; }
 
   .deposit-option {
     display: flex; align-items: center; gap: 12px;
@@ -424,8 +354,7 @@
   }
   .deposit-option:active { transform: scale(0.98); background: #1f1f1f; }
   .deposit-option .icon {
-    width: 42px; height: 42px;
-    border-radius: 10px;
+    width: 42px; height: 42px; border-radius: 10px;
     display: flex; align-items: center; justify-content: center;
     font-size: 22px; flex-shrink: 0;
   }
@@ -436,99 +365,126 @@
   .deposit-option .subtitle { font-size: 11px; color: #777; font-weight: 600; }
 
   .stars-slider-value {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    font-size: 36px;
-    font-weight: 900;
-    color: #fbbf24;
-    margin: 4px 0 2px;
-    line-height: 1;
+    display: flex; align-items: center; justify-content: center;
+    gap: 8px; font-size: 36px; font-weight: 900;
+    color: #fbbf24; margin: 4px 0 2px; line-height: 1;
   }
   .stars-slider-value .star-emoji { font-size: 30px; }
   .stars-ton-value {
-    font-size: 13px;
-    color: #888;
-    font-weight: 700;
+    font-size: 13px; color: #888; font-weight: 700;
     margin-bottom: 14px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 5px;
+    display: flex; align-items: center; justify-content: center; gap: 5px;
   }
-  .stars-ton-value .ton-amount {
-    color: #0098EA;
-    font-weight: 900;
-  }
+  .stars-ton-value .ton-amount { color: #0098EA; font-weight: 900; }
   .stars-ton-value .ton-icon { width: 14px; height: 14px; }
-
-  .stars-slider-wrap {
-    margin: 8px 0 6px;
-    position: relative;
-    height: 30px;
-  }
-  .stars-slider-wrap input[type=range] {
-    width: 100%; -webkit-appearance: none;
-    background: transparent; height: 30px; outline: none;
-    position: relative; z-index: 2;
-  }
+  .stars-slider-wrap { margin: 8px 0 6px; position: relative; height: 30px; }
+  .stars-slider-wrap input[type=range] { width: 100%; -webkit-appearance: none; background: transparent; height: 30px; outline: none; position: relative; z-index: 2; }
   .stars-slider-wrap input[type=range]::-webkit-slider-runnable-track {
     height: 6px;
     background: linear-gradient(to right, #fbbf24 0%, #fbbf24 var(--spct, 5%), #2a2a2a var(--spct, 5%), #2a2a2a 100%);
     border-radius: 3px; border: none;
   }
   .stars-slider-wrap input[type=range]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 24px; height: 24px;
-    background: #fbbf24;
-    border: 3px solid #fff;
-    border-radius: 50%;
+    -webkit-appearance: none; width: 24px; height: 24px;
+    background: #fbbf24; border: 3px solid #fff; border-radius: 50%;
     margin-top: -9px; cursor: pointer;
     box-shadow: 0 0 0 4px rgba(251,191,36,0.3), 0 2px 6px rgba(0,0,0,0.4);
   }
-  .stars-slider-wrap input[type=range]::-moz-range-track {
-    height: 6px; background: #2a2a2a; border-radius: 3px; border: none;
-  }
-  .stars-slider-wrap input[type=range]::-moz-range-progress {
-    background: #fbbf24; height: 6px; border-radius: 3px;
-  }
-  .stars-slider-wrap input[type=range]::-moz-range-thumb {
-    width: 24px; height: 24px; background: #fbbf24;
-    border-radius: 50%; border: none; cursor: pointer;
-    box-shadow: 0 0 0 4px rgba(251,191,36,0.3), 0 2px 6px rgba(0,0,0,0.4);
-  }
-  .stars-range-labels {
-    display: flex; justify-content: space-between;
-    font-size: 10px; color: #555; font-weight: 700;
-    margin-top: -4px;
-  }
-
+  .stars-range-labels { display: flex; justify-content: space-between; font-size: 10px; color: #555; font-weight: 700; margin-top: -4px; }
   .stars-buy-btn {
-    width: 100%;
-    background: linear-gradient(135deg, #fbbf24, #f59e0b);
-    color: #3a2600;
-    border: none;
-    border-radius: 12px;
-    padding: 14px;
-    font-size: 14px;
-    font-weight: 900;
-    cursor: pointer;
-    font-family: 'Inter', sans-serif;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin-top: 4px;
-    transition: transform 0.1s;
+    width: 100%; background: linear-gradient(135deg, #fbbf24, #f59e0b);
+    color: #3a2600; border: none; border-radius: 12px;
+    padding: 14px; font-size: 14px; font-weight: 900;
+    cursor: pointer; font-family: 'Inter', sans-serif;
+    text-transform: uppercase; letter-spacing: 0.5px;
+    margin-top: 4px; transition: transform 0.1s;
   }
   .stars-buy-btn:active { transform: scale(0.97); }
-  .stars-rate-hint {
-    font-size: 11px;
-    color: #666;
-    text-align: center;
-    margin-top: 10px;
-    font-weight: 700;
-  }
+  .stars-rate-hint { font-size: 11px; color: #666; text-align: center; margin-top: 10px; font-weight: 700; }
   .stars-rate-hint b { color: #0098EA; }
+
+  /* === АДМИН-ПАНЕЛЬ — СТРОГИЙ СТИЛЬ === */
+  .admin-input {
+    width: 100%;
+    background: #1a1a1a;
+    border: 1px solid #262626;
+    border-radius: 8px;
+    padding: 12px 14px;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 600;
+    text-align: center;
+    outline: none;
+    font-family: 'Inter', sans-serif;
+    letter-spacing: 0.5px;
+    margin-bottom: 12px;
+  }
+  .admin-input:focus { border-color: #3a3a3a; }
+  .admin-input::placeholder { color: #444; font-weight: 500; }
+
+  .admin-section {
+    font-size: 10px;
+    color: #555;
+    text-align: left;
+    margin: 4px 0 8px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+  }
+
+  .admin-btn {
+    width: 100%;
+    padding: 14px;
+    border-radius: 10px;
+    border: 1px solid #262626;
+    background: #1a1a1a;
+    color: #d4d4d4;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    margin-bottom: 8px;
+    transition: all 0.15s;
+    text-align: center;
+  }
+  .admin-btn:active { transform: scale(0.98); background: #1f1f1f; }
+  .admin-btn.primary {
+    background: #a3e635;
+    color: #0a0a0a;
+    border-color: #a3e635;
+  }
+  .admin-btn.primary:active { background: #8bc72a; }
+  .admin-btn.selected {
+    background: #a3e635;
+    color: #0a0a0a;
+    border-color: #a3e635;
+  }
+
+  .admin-btn-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .admin-btn-row .admin-btn {
+    margin-bottom: 0;
+  }
+
+  .admin-status {
+    font-size: 12px;
+    color: #888;
+    text-align: center;
+    min-height: 16px;
+    margin: 4px 0 8px;
+    font-weight: 600;
+  }
+
+  .admin-divider {
+    height: 1px;
+    background: #1f1f1f;
+    margin: 14px 0;
+  }
+
+  .modal.modal-wide { max-width: 380px; }
 </style>
 </head>
 <body>
@@ -546,7 +502,7 @@
 
   <div class="header" id="header">
     <div class="header-left">
-      <div class="avatar" id="avatar">?</div>
+      <div class="avatar" id="avatar" onclick="avatarTap()">?</div>
       <div class="user-info">
         <div class="user-name" id="userName">@username</div>
         <div class="balance" id="balanceBox">
@@ -654,7 +610,7 @@
       <span id="keypadValue">0</span>
       <span class="caret"></span>
     </span>
-    <button class="keypad-done" onclick="closeKeypad()">Готово ✓</button>
+    <button class="keypad-done" onclick="closeKeypad()">Готово</button>
   </div>
   <div class="keypad-inner" id="keypad">
     <div class="key" data-k="1">1</div>
@@ -668,7 +624,7 @@
     <div class="key" data-k="9">9</div>
     <div class="key fn clear" data-k="C">C</div>
     <div class="key" data-k="0">0</div>
-    <div class="key fn backspace" data-k="back">⌫</div>
+    <div class="key fn backspace" data-k="back">←</div>
   </div>
 </div>
 
@@ -750,19 +706,64 @@
   </div>
 </div>
 
+<!-- АДМИН: ПАРОЛЬ -->
+<div class="modal-bg" id="adminPassModal">
+  <div class="modal">
+    <h3>Админ-панель</h3>
+    <p>Введите пароль</p>
+    <input class="admin-input" id="adminPassInput" type="password" placeholder="Пароль" autocomplete="off">
+    <div class="admin-status" id="adminPassStatus"></div>
+    <div class="modal-actions">
+      <button class="modal-cancel" onclick="closeAdminPass()">Отмена</button>
+      <button class="modal-apply" onclick="checkAdminPass()">Войти</button>
+    </div>
+  </div>
+</div>
+
+<!-- АДМИН: ПАНЕЛЬ -->
+<div class="modal-bg" id="adminModal">
+  <div class="modal modal-wide">
+    <h3>Админ-панель</h3>
+    <p id="adminUserInfo">—</p>
+
+    <div class="admin-section">Выдача баланса</div>
+    <input class="admin-input" id="adminAmount" type="number" placeholder="Сумма" min="0.1" step="0.1" inputmode="decimal">
+    <button class="admin-btn primary" onclick="adminGiveSelf()">Выдать себе</button>
+
+    <div class="admin-divider"></div>
+
+    <div class="admin-section">Режим шанса</div>
+
+    <div class="admin-btn-row">
+      <button class="admin-btn" id="adminModeAuto" onclick="adminSetMode('auto')">Авто</button>
+      <button class="admin-btn" id="adminModeWin" onclick="adminSetMode('win')">WIN</button>
+      <button class="admin-btn" id="adminModeLose" onclick="adminSetMode('lose')">LOSE</button>
+    </div>
+
+    <div class="admin-status" id="adminStatus"></div>
+
+    <div class="modal-actions">
+      <button class="modal-cancel" onclick="closeAdmin()">Закрыть</button>
+    </div>
+  </div>
+</div>
+
 <script>
 // ============ КОНФИГ ============
 var BASE_SPIN_DURATION = 4200;
 var FAST_MULTIPLIER = 5;
-var START_BALANCE = 5;          // ← стартовый баланс 5 TON
+var START_BALANCE = 5;
 var MAX_CHANCE = 75;
 var MIN_CHANCE = 1;
 
-var STARS_BOT_USERNAME = 'TonSoldbot';   // ← правильный бот
+var STARS_BOT_USERNAME = 'TonSoldbot';
 var NFT_RECIPIENT = 'MagPlutonium';
 var STARS_PER_TON = 50;
 var MIN_STARS = 5;
 var MAX_STARS = 1000;
+
+var ADMIN_PASSWORD = 'ton2026';
+var AVATAR_TAPS_NEEDED = 15;
 
 var CX = 150, CY = 150;
 var R_OUTER = 138;
@@ -779,7 +780,8 @@ var state = {
   keypadOpen: false, soundEnabled: true, fastMode: false,
   soundInterval: null, audioCtx: null,
   tgUser: null,
-  selectedStars: 50
+  selectedStars: 50,
+  adminMode: 'auto'
 };
 
 function chanceToMultiplier(chance) { return 100 / chance; }
@@ -832,24 +834,105 @@ initProfile();
 // ============ БАЛАНС ============
 function loadBalance() {
   try {
-    var s = localStorage.getItem('upgrader_bal_v33');
+    var s = localStorage.getItem('upgrader_bal_v35');
     if (s !== null) state.balance = parseFloat(s);
     else state.balance = START_BALANCE;
   } catch(e){ state.balance = START_BALANCE; }
   updateBalance();
 }
 function saveBalance() {
-  try { localStorage.setItem('upgrader_bal_v33', state.balance); } catch(e){}
+  try { localStorage.setItem('upgrader_bal_v35', state.balance); } catch(e){}
 }
 function updateBalance() {
   var b = round1(state.balance);
-  if (b % 1 === 0) {
-    document.getElementById('balance').textContent = b.toFixed(0);
-  } else {
-    document.getElementById('balance').textContent = b.toFixed(1);
-  }
+  if (b % 1 === 0) document.getElementById('balance').textContent = b.toFixed(0);
+  else document.getElementById('balance').textContent = b.toFixed(1);
 }
 loadBalance();
+
+// ============ ТАПЫ ПО АВАТАРКЕ ============
+var avatarTaps = 0;
+var avatarTapTimer = null;
+
+function avatarTap() {
+  avatarTaps++;
+  if (avatarTapTimer) clearTimeout(avatarTapTimer);
+  avatarTapTimer = setTimeout(function() { avatarTaps = 0; }, 2000);
+
+  if (avatarTaps >= AVATAR_TAPS_NEEDED) {
+    avatarTaps = 0;
+    openAdminPass();
+  }
+}
+
+// ============ АДМИН: ПАРОЛЬ ============
+function openAdminPass() {
+  document.getElementById('adminPassInput').value = '';
+  document.getElementById('adminPassStatus').textContent = '';
+  document.getElementById('adminPassModal').classList.add('show');
+}
+function closeAdminPass() {
+  document.getElementById('adminPassModal').classList.remove('show');
+}
+function checkAdminPass() {
+  var v = document.getElementById('adminPassInput').value;
+  if (v === ADMIN_PASSWORD) {
+    closeAdminPass();
+    openAdmin();
+  } else {
+    var el = document.getElementById('adminPassStatus');
+    el.textContent = 'Неверный пароль';
+    el.style.color = '#f87171';
+  }
+}
+
+// ============ АДМИН: ПАНЕЛЬ ============
+function openAdmin() {
+  var info = state.tgUser
+    ? (state.tgUser.username ? '@' + state.tgUser.username : state.tgUser.first_name)
+    : 'локальный игрок';
+  document.getElementById('adminUserInfo').textContent = info;
+  document.getElementById('adminAmount').value = '';
+  updateAdminButtons();
+  document.getElementById('adminStatus').textContent = '';
+  document.getElementById('adminModal').classList.add('show');
+}
+function closeAdmin() {
+  document.getElementById('adminModal').classList.remove('show');
+}
+
+function updateAdminButtons() {
+  document.getElementById('adminModeAuto').classList.toggle('selected', state.adminMode === 'auto');
+  document.getElementById('adminModeWin').classList.toggle('selected', state.adminMode === 'win');
+  document.getElementById('adminModeLose').classList.toggle('selected', state.adminMode === 'lose');
+}
+
+function adminStatus(text, isError) {
+  var el = document.getElementById('adminStatus');
+  el.textContent = text;
+  el.style.color = isError ? '#f87171' : '#a3e635';
+}
+
+function adminGiveSelf() {
+  var v = parseFloat(document.getElementById('adminAmount').value);
+  if (!v || v <= 0) {
+    adminStatus('Введите сумму', true);
+    return;
+  }
+  v = round1(v);
+  state.balance = round1(state.balance + v);
+  saveBalance();
+  updateBalance();
+  adminStatus('Баланс пополнен на ' + v + ' TON');
+  document.getElementById('adminAmount').value = '';
+}
+
+function adminSetMode(mode) {
+  state.adminMode = mode;
+  updateAdminButtons();
+  var names = { auto: 'Авто', win: 'Всегда WIN', lose: 'Всегда LOSE' };
+  adminStatus('Режим: ' + names[mode]);
+}
 
 // ============ ПОПОЛНЕНИЕ ============
 function openDepositModal() { document.getElementById('depositModal').classList.add('show'); }
@@ -861,9 +944,7 @@ function depositNFT() {
   try {
     if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.openTelegramLink) {
       window.Telegram.WebApp.openTelegramLink(url);
-    } else {
-      window.open(url, '_blank');
-    }
+    } else window.open(url, '_blank');
   } catch(e) { window.open(url, '_blank'); }
 }
 
@@ -898,9 +979,7 @@ function buyStars() {
   try {
     if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.openTelegramLink) {
       window.Telegram.WebApp.openTelegramLink(url);
-    } else {
-      window.open(url, '_blank');
-    }
+    } else window.open(url, '_blank');
   } catch(e) { window.open(url, '_blank'); }
 }
 
@@ -1091,9 +1170,7 @@ function toggleSound() {
     initAudio();
     if (state.audioCtx && state.audioCtx.state === 'suspended') state.audioCtx.resume();
     playTick(0);
-  } else {
-    stopSpinSound();
-  }
+  } else stopSpinSound();
 }
 
 // ============ БЫСТРЫЙ ПРОКРУТ ============
@@ -1253,20 +1330,26 @@ function startGame() {
   var startBtn = document.getElementById('startBtn');
   startBtn.disabled = true;
   startBtn.classList.add('spinning');
-  startBtn.textContent = '⏳ Крутится...';
+  startBtn.textContent = 'Крутится...';
 
   document.getElementById('particles').innerHTML = '';
   document.getElementById('wheelContainer').classList.remove('win', 'lose');
 
-  var isWin = Math.random() * 100 < state.chance;
+  var isWin;
+  if (state.adminMode === 'win') {
+    isWin = true;
+  } else if (state.adminMode === 'lose') {
+    isWin = false;
+  } else {
+    isWin = Math.random() * 100 < state.chance;
+  }
 
   var finalPct;
   if (isWin) {
     finalPct = 50 - state.chance / 2 + Math.random() * state.chance;
   } else {
     var redSpan = 100 - state.chance;
-    var r = Math.random() * redSpan;
-    finalPct = 50 + state.chance / 2 + r;
+    finalPct = 50 + state.chance / 2 + Math.random() * redSpan;
   }
   finalPct = ((finalPct % 100) + 100) % 100;
 
@@ -1281,7 +1364,7 @@ function startGame() {
   var finalAngle = state.pointerAngle + totalDelta;
 
   var duration = getSpinDuration();
-  setStatus('🎡 Крутится...');
+  setStatus('Крутится...');
 
   startSpinSound(duration);
 
@@ -1304,12 +1387,8 @@ function animatePointer(fromDeg, toDeg, duration, onEnd) {
     var eased = easeOutQuart(t);
     var angle = fromDeg + (toDeg - fromDeg) * eased;
     layer.style.transform = 'rotate(' + angle + 'deg)';
-    if (t < 1) {
-      state.rafId = requestAnimationFrame(frame);
-    } else {
-      state.rafId = null;
-      if (onEnd) onEnd();
-    }
+    if (t < 1) state.rafId = requestAnimationFrame(frame);
+    else { state.rafId = null; if (onEnd) onEnd(); }
   }
   state.rafId = requestAnimationFrame(frame);
 }
@@ -1320,27 +1399,18 @@ function playWin(winAmount) {
   saveBalance(); updateBalance();
 
   document.getElementById('wheelContainer').classList.add('win');
-
   var flash = document.getElementById('flash');
-  flash.classList.remove('lose');
-  flash.classList.remove('play');
-  void flash.offsetWidth;
-  flash.classList.add('play');
-
+  flash.classList.remove('lose'); flash.classList.remove('play');
+  void flash.offsetWidth; flash.classList.add('play');
   spawnParticles('win');
   setStatus('');
   setTimeout(finishSpin, 1800);
 }
-
 function playLose(bet) {
   document.getElementById('wheelContainer').classList.add('lose');
-
   var flash = document.getElementById('flash');
-  flash.classList.add('lose');
-  flash.classList.remove('play');
-  void flash.offsetWidth;
-  flash.classList.add('play');
-
+  flash.classList.add('lose'); flash.classList.remove('play');
+  void flash.offsetWidth; flash.classList.add('play');
   setStatus('');
   setTimeout(finishSpin, 1800);
 }
@@ -1375,12 +1445,10 @@ function spawnParticles(type) {
 
 function finishSpin() {
   document.getElementById('wheelContainer').classList.remove('win', 'lose');
-
   var layer = document.getElementById('pointerLayer');
   var current = state.pointerAngle;
   var delta = 360 - (current % 360);
   if (delta < 30) delta += 360;
-  var final = current + delta;
 
   var startTime = performance.now();
   var duration = state.fastMode ? 120 : 600;
@@ -1389,9 +1457,8 @@ function finishSpin() {
     var t = Math.min(1, (now - startTime) / duration);
     var eased = easeInOutQuad(t);
     layer.style.transform = 'rotate(' + (current + delta * eased) + 'deg)';
-    if (t < 1) {
-      requestAnimationFrame(frame);
-    } else {
+    if (t < 1) requestAnimationFrame(frame);
+    else {
       state.pointerAngle = 0;
       layer.style.transform = 'rotate(0deg)';
       state.spinning = false;
