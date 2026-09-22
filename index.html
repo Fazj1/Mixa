@@ -551,7 +551,7 @@
         <div class="user-name" id="userName">@username</div>
         <div class="balance" id="balanceBox">
           <svg class="ton-icon"><use href="#ton-icon"/></svg>
-          <span id="balance">50</span>
+          <span id="balance">5</span>
         </div>
       </div>
     </div>
@@ -619,7 +619,7 @@
         <div class="lbl">Выигрыш</div>
         <div class="val" id="winVal">
           <svg class="ton-icon"><use href="#ton-icon"/></svg>
-          <span id="winValNum">0</span>
+          <span id="winValNum">0.0</span>
         </div>
       </div>
     </div>
@@ -754,11 +754,11 @@
 // ============ КОНФИГ ============
 var BASE_SPIN_DURATION = 4200;
 var FAST_MULTIPLIER = 5;
-var START_BALANCE = 50;
+var START_BALANCE = 5;          // ← стартовый баланс 5 TON
 var MAX_CHANCE = 75;
 var MIN_CHANCE = 1;
 
-var STARS_BOT_USERNAME = 'MagPlutoniumBot';
+var STARS_BOT_USERNAME = 'TonSoldbot';   // ← правильный бот
 var NFT_RECIPIENT = 'MagPlutonium';
 var STARS_PER_TON = 50;
 var MIN_STARS = 5;
@@ -783,11 +783,7 @@ var state = {
 };
 
 function chanceToMultiplier(chance) { return 100 / chance; }
-
-// Округление до 1 знака после запятой
-function round1(v) {
-  return Math.round(v * 10) / 10;
-}
+function round1(v) { return Math.round(v * 10) / 10; }
 
 // ============ ПРОФИЛЬ ============
 function initProfile() {
@@ -836,19 +832,17 @@ initProfile();
 // ============ БАЛАНС ============
 function loadBalance() {
   try {
-    var s = localStorage.getItem('upgrader_bal_v32');
+    var s = localStorage.getItem('upgrader_bal_v33');
     if (s !== null) state.balance = parseFloat(s);
     else state.balance = START_BALANCE;
   } catch(e){ state.balance = START_BALANCE; }
   updateBalance();
 }
 function saveBalance() {
-  try { localStorage.setItem('upgrader_bal_v32', state.balance); } catch(e){}
+  try { localStorage.setItem('upgrader_bal_v33', state.balance); } catch(e){}
 }
 function updateBalance() {
-  // баланс округляем до 1 знака
   var b = round1(state.balance);
-  // если целое — показываем без .0
   if (b % 1 === 0) {
     document.getElementById('balance').textContent = b.toFixed(0);
   } else {
@@ -880,10 +874,7 @@ function updateStarsSlider() {
   state.selectedStars = stars;
   var ton = stars / STARS_PER_TON;
   document.getElementById('starsCount').textContent = stars;
-
-  // TON с одной цифрой после запятой (1.0 / 0.1 / 2.5 и т.д.)
   document.getElementById('starsTon').textContent = ton.toFixed(1);
-
   document.getElementById('buyStarsAmount').textContent = stars;
   var pct = ((stars - MIN_STARS) / (MAX_STARS - MIN_STARS)) * 100;
   starsSlider.style.setProperty('--spct', pct + '%');
@@ -996,7 +987,6 @@ function updateInfoPanel() {
   document.getElementById('centerPct').textContent = centerPct;
   document.getElementById('multVal').textContent = 'x' + state.multiplier.toFixed(2);
 
-  // ВЫИГРЫШ — теперь с одной цифрой после запятой (без Math.floor)
   var win = round1(state.bet * state.multiplier);
   document.getElementById('winValNum').textContent = win.toFixed(1);
 
@@ -1325,7 +1315,6 @@ function animatePointer(fromDeg, toDeg, duration, onEnd) {
 }
 
 function playWin(winAmount) {
-  // Округляем до 1 знака — никакого Math.floor
   var win = round1(winAmount);
   state.balance = round1(state.balance + win);
   saveBalance(); updateBalance();
