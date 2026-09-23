@@ -24,7 +24,6 @@
 
   .ton-icon { display: inline-block; vertical-align: middle; width: 1em; height: 1em; flex-shrink: 0; }
 
-  /* HEADER */
   .header {
     display: flex; justify-content: space-between; align-items: center;
     background: #141414; border-radius: 12px; padding: 8px 12px;
@@ -66,7 +65,6 @@
   }
   .deposit-btn:active { transform: scale(0.96); }
 
-  /* TOOLBAR */
   .toolbar { display: flex; gap: 6px; flex-shrink: 0; padding: 0 2px; }
   .tool-btn {
     width: 30px; height: 30px;
@@ -85,7 +83,6 @@
   .tool-btn.sound-on svg path { fill: currentColor; }
   .tool-btn.fast-on svg polygon { fill: currentColor; }
 
-  /* BOARD */
   .board-wrap {
     flex: 1; background: #0a0a0a; border-radius: 16px; padding: 10px;
     border: 1px solid #1a1a1a; display: flex; flex-direction: column;
@@ -169,7 +166,6 @@
   .info-box .val.green { color: #a3e635; }
   .info-box .val.yellow { color: #ffd23f; }
 
-  /* CONTROLS */
   .bet-display {
     width: 100%; background: #141414; border: 1px solid #1f1f1f;
     border-radius: 12px; padding: 10px 14px;
@@ -264,7 +260,6 @@
   button.action:disabled { opacity: 0.5; cursor: not-allowed; }
   button.action.spinning { background: linear-gradient(135deg, #444, #222); color: #888; }
 
-  /* BOTTOM NAV */
   .bottom-nav {
     display: flex; justify-content: space-around; align-items: stretch;
     background: #141414; border-top: 1px solid #1f1f1f; margin: 0 -8px;
@@ -292,7 +287,6 @@
     padding: 0 4px;
   }
 
-  /* SCREENS */
   .screen {
     flex: 1; display: none; flex-direction: column;
     background: #0a0a0a; border-radius: 16px; padding: 16px;
@@ -307,7 +301,6 @@
   .screen h2 { font-size: 20px; font-weight: 900; margin: 0 0 6px; color: #fff; }
   .screen p { font-size: 13px; color: #666; margin: 0; max-width: 260px; }
 
-  /* ПРОФИЛЬ */
   .profile-screen {
     justify-content: flex-start !important;
     align-items: stretch !important;
@@ -416,7 +409,6 @@
     font-size: 12px; font-weight: 600;
   }
 
-  /* MODALS */
   .modal-bg {
     position: fixed; inset: 0; background: rgba(0,0,0,0.75);
     display: none; align-items: center; justify-content: center;
@@ -458,7 +450,6 @@
   .modal-cancel { background: #1f1f1f; color: #888; }
   .modal-apply { background: linear-gradient(135deg, #a3e635, #65a30d); color: #0a0a0a; }
 
-  /* Депозит опции */
   .deposit-option {
     display: flex; align-items: center; gap: 12px;
     background: #1a1a1a; border: 1px solid #242424;
@@ -477,7 +468,6 @@
   .deposit-option .title { font-size: 14px; font-weight: 800; color: #fff; margin-bottom: 2px; }
   .deposit-option .subtitle { font-size: 11px; color: #777; font-weight: 600; }
 
-  /* Звёзды */
   .stars-slider-value {
     display: flex; align-items: center; justify-content: center;
     gap: 8px; font-size: 36px; font-weight: 900;
@@ -517,7 +507,6 @@
   .stars-rate-hint { font-size: 11px; color: #666; text-align: center; margin-top: 10px; font-weight: 700; }
   .stars-rate-hint b { color: #0098EA; }
 
-  /* Вывод */
   .withdraw-input {
     width: 100%; background: #1a1a1a; border: 1px solid #262626;
     border-radius: 10px; padding: 14px; color: #fff;
@@ -559,7 +548,6 @@
   .withdraw-summary-row .val.gold { color: #ffd23f; }
   .withdraw-summary-row .val .ton-icon { width: 14px; height: 14px; }
 
-  /* Админ */
   .admin-input {
     width: 100%; background: #1a1a1a; border: 1px solid #262626;
     border-radius: 8px; padding: 12px 14px; color: #fff;
@@ -623,14 +611,14 @@
   </div>
 
   <div class="toolbar">
-    <button class="tool-btn" id="chanceTool" onclick="openChanceModal()" title="Настройка шанса">
+    <button class="tool-btn" id="chanceTool" onclick="openChanceModal()">
       <svg viewBox="0 0 24 24">
         <circle cx="12" cy="12" r="3"/>
         <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
       </svg>
     </button>
 
-    <button class="tool-btn sound-on" id="soundTool" onclick="toggleSound()" title="Звук">
+    <button class="tool-btn sound-on" id="soundTool" onclick="toggleSound()">
       <svg viewBox="0 0 24 24" id="soundSvg">
         <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
         <path d="M15.54 8.46a5 5 0 0 1 0 7.07" id="soundWave1"/>
@@ -638,7 +626,7 @@
       </svg>
     </button>
 
-    <button class="tool-btn" id="fastTool" onclick="toggleFast()" title="Быстрый прокрут">
+    <button class="tool-btn" id="fastTool" onclick="toggleFast()">
       <svg viewBox="0 0 24 24">
         <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
       </svg>
@@ -921,7 +909,7 @@
 <div class="modal-bg" id="starsModal">
   <div class="modal">
     <h3>Пополнить звёздами</h3>
-    <p>Выбери количество звёзд</p>
+    <p>Перейди в бота, чтобы пополнить</p>
     <div class="stars-slider-value">
       <span class="star-emoji">⭐</span>
       <span id="starsCount">50</span>
@@ -933,7 +921,7 @@
     </div>
     <div class="stars-slider-wrap"><input type="range" id="starsSlider" min="5" max="1000" value="50" step="1"></div>
     <div class="stars-range-labels"><span>5 ⭐</span><span>1000 ⭐</span></div>
-    <button class="stars-buy-btn" onclick="buyStars()">Оплатить <span id="buyStarsAmount">50</span> ⭐</button>
+    <button class="stars-buy-btn" onclick="buyStars()">Перейти в бот</button>
     <div class="stars-rate-hint">Курс: <b>1 TON = 50 ⭐</b></div>
     <div class="modal-actions">
       <button class="modal-cancel" onclick="closeStarsModal()">Отмена</button>
@@ -1038,7 +1026,7 @@ var START_BALANCE = 5;
 var MAX_CHANCE = 75;
 var MIN_CHANCE = 1;
 
-var STARS_BOT_USERNAME = 'TonSpin';
+var STARS_BOT_USERNAME = 'tonsoldbot';  // ← ИЗМЕНЕНО на твой бот
 var NFT_RECIPIENT = 'MagPlutonium';
 var STARS_PER_TON = 50;
 var MIN_STARS = 5;
@@ -1073,8 +1061,7 @@ function openWithdrawModal() {
   if (state.balance < WITHDRAW_MIN_TON) {
     document.getElementById('withdrawAmountInput').value = '';
     document.getElementById('withdrawAvailable').textContent = Math.floor(state.balance);
-    document.getElementById('withdrawAmountStatus').textContent =
-      'Минимум ' + WITHDRAW_MIN_TON + ' TON. У тебя ' + Math.floor(state.balance);
+    document.getElementById('withdrawAmountStatus').textContent = 'Минимум ' + WITHDRAW_MIN_TON + ' TON. У тебя ' + Math.floor(state.balance);
     document.getElementById('withdrawAmountModal').classList.add('show');
     return;
   }
@@ -1155,7 +1142,6 @@ function addHistoryEntry(isWin, bet, chance, amount) {
   saveStats();
 }
 
-// ============ ПЕРЕКЛЮЧЕНИЕ ВКЛАДОК ============
 function switchTab(tab) {
   state.currentTab = tab;
   var navItems = document.querySelectorAll('.nav-item');
@@ -1176,7 +1162,6 @@ function switchTab(tab) {
   if (tab === 'profile') renderProfile();
 }
 
-// ============ ПРОФИЛЬ ============
 function renderProfile() {
   var avatarEl = document.getElementById('profileAvatarHero');
   var nameEl = document.getElementById('profileNameHero');
@@ -1262,7 +1247,6 @@ function timeAgo(ts) {
   return Math.floor(diff / 86400) + ' дн назад';
 }
 
-// ============ ПРОФИЛЬ (шапка) ============
 function initProfile() {
   var avatarEl = document.getElementById('avatar');
   var nameEl = document.getElementById('userName');
@@ -1304,17 +1288,16 @@ function initProfile() {
 }
 initProfile();
 
-// ============ БАЛАНС ============
 function loadBalance() {
   try {
-    var s = localStorage.getItem('upgrader_bal_v47');
+    var s = localStorage.getItem('upgrader_bal_v48');
     if (s !== null) state.balance = parseFloat(s);
     else state.balance = START_BALANCE;
   } catch(e){ state.balance = START_BALANCE; }
   updateBalance();
 }
 function saveBalance() {
-  try { localStorage.setItem('upgrader_bal_v47', state.balance); } catch(e){}
+  try { localStorage.setItem('upgrader_bal_v48', state.balance); } catch(e){}
 }
 function updateBalance() {
   var b = round1(state.balance);
@@ -1325,7 +1308,6 @@ function updateBalance() {
 }
 loadBalance();
 
-// ============ ТАПЫ ПО АВАТАРКЕ ============
 var avatarTaps = 0;
 var avatarTapTimer = null;
 function avatarTap() {
@@ -1335,7 +1317,6 @@ function avatarTap() {
   if (avatarTaps >= AVATAR_TAPS_NEEDED) { avatarTaps = 0; openAdminPass(); }
 }
 
-// ============ АДМИН ============
 function openAdminPass() {
   document.getElementById('adminPassInput').value = '';
   document.getElementById('adminPassStatus').textContent = '';
@@ -1388,7 +1369,6 @@ function adminSetMode(mode) {
   adminStatus('Режим: ' + names[mode]);
 }
 
-// ============ ПОПОЛНЕНИЕ ============
 function openDepositModal() { document.getElementById('depositModal').classList.add('show'); }
 function closeDepositModal() { document.getElementById('depositModal').classList.remove('show'); }
 function depositNFT() {
@@ -1401,7 +1381,6 @@ function depositNFT() {
   } catch(e) { window.open(url, '_blank'); }
 }
 
-// ============ ЗВЁЗДЫ ============
 var starsSlider = document.getElementById('starsSlider');
 function updateStarsSlider() {
   var stars = parseInt(starsSlider.value, 10);
@@ -1409,7 +1388,6 @@ function updateStarsSlider() {
   var ton = stars / STARS_PER_TON;
   document.getElementById('starsCount').textContent = stars;
   document.getElementById('starsTon').textContent = ton.toFixed(1);
-  document.getElementById('buyStarsAmount').textContent = stars;
   var pct = ((stars - MIN_STARS) / (MAX_STARS - MIN_STARS)) * 100;
   starsSlider.style.setProperty('--spct', pct + '%');
 }
@@ -1423,15 +1401,11 @@ function openStarsModal() {
 }
 function closeStarsModal() { document.getElementById('starsModal').classList.remove('show'); }
 
-// ⚡ ГЛАВНАЯ ФУНКЦИЯ — открывает бота с параметром stars_USERID_COUNT
+// ⚡ ГЛАВНАЯ ФУНКЦИЯ — открывает бота @tonsoldbot
+// Бот сам покажет кнопку "Пополнить", игрок напишет сумму, появится invoice
 function buyStars() {
-  var count = state.selectedStars;
-  if (count < MIN_STARS) return;
   closeStarsModal();
-
-  var userId = state.tgUser ? state.tgUser.id : '';
-  var url = 'https://t.me/' + STARS_BOT_USERNAME + '?start=stars_' + userId + '_' + count;
-
+  var url = 'https://t.me/' + STARS_BOT_USERNAME;
   try {
     if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.openTelegramLink) {
       window.Telegram.WebApp.openTelegramLink(url);
@@ -1443,7 +1417,6 @@ function buyStars() {
   }
 }
 
-// ============ ВВОД СТАВКИ ============
 function setBetFromString(str) {
   state.betInput = str;
   state.bet = parseFloat(str) || 0;
@@ -1491,7 +1464,6 @@ document.addEventListener('click', function(e) {
   closeKeypad();
 });
 
-// ============ UI ============
 function setStatus(text) {
   var el = document.getElementById('status');
   el.textContent = text;
@@ -1534,7 +1506,6 @@ function updateInfoPanel() {
   document.getElementById('centerLabel').textContent = lbl;
 }
 
-// ============ МОДАЛКА ШАНСА ============
 var slider = document.getElementById('chanceSlider');
 function updateSliderFill() {
   var val = parseFloat(slider.value);
@@ -1561,7 +1532,6 @@ function applyChanceModal() {
   closeChanceModal();
 }
 
-// ============ ЗВУК ============
 function initAudio() {
   if (state.audioCtx) return;
   try {
@@ -1624,7 +1594,6 @@ function toggleSound() {
   } else stopSpinSound();
 }
 
-// ============ БЫСТРЫЙ ПРОКРУТ ============
 function toggleFast() {
   state.fastMode = !state.fastMode;
   var btn = document.getElementById('fastTool');
@@ -1635,7 +1604,6 @@ function getSpinDuration() {
   return state.fastMode ? BASE_SPIN_DURATION / FAST_MULTIPLIER : BASE_SPIN_DURATION;
 }
 
-// ============ ГЕОМЕТРИЯ ============
 function pctToAngle(pct) { return (pct / 100) * 360 - 90; }
 function polarXY(cx, cy, r, angleDeg) {
   var rad = angleDeg * Math.PI / 180;
@@ -1657,7 +1625,6 @@ function arcPath(cx, cy, rOut, rIn, fromPct, toPct) {
          ' A ' + rIn + ' ' + rIn + ' 0 ' + largeArc + ' 0 ' + p1i.x + ' ' + p1i.y + ' Z';
 }
 
-// ============ РИСОВАНИЕ КОЛЕСА ============
 function renderWheel() {
   var svg = document.getElementById('wheelSvg');
   svg.innerHTML = '';
@@ -1753,7 +1720,6 @@ function renderWheel() {
   svg.appendChild(makeLabel(CX, CY + R_OUTER + 4, '0%'));
 }
 
-// ============ ИГРА ============
 function startGame() {
   if (state.spinning) return;
   if (state.currentTab !== 'upgrade') return;
@@ -1904,7 +1870,6 @@ function finishSpin() {
   requestAnimationFrame(frame);
 }
 
-// ============ СТАРТ ============
 setChance(50);
 setBetFromString('0');
 updateSoundButton();
@@ -1912,4 +1877,4 @@ renderWheel();
 switchTab('upgrade');
 </script>
 </body>
-     </html>
+</html>
